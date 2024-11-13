@@ -20,10 +20,19 @@
 4. Membuat HomeController
   - Jalankan prompt untuk membuat controller
   - Menambahkan  `Route::get('admin/dashboard', [HomeController::class, 'index'])->name('admin.dashboard');` di routes
-  - Tambahkan code berikut yang akan digunakan untuk mengarah ke view admin/dashboard.blade.php
+  - Tambahkan code berikut di home controller yang akan digunakan untuk mengarah ke view admin/dashboard.blade.php
     ```
-    public function index() {
-        return view('admin.dashboard');
+     public function store(LoginRequest $request): RedirectResponse
+    {
+        $request->authenticate();
+
+        $request->session()->regenerate();
+
+        if ($request->user()->usertype == 'admin') {
+            return redirect('admin/dashboard');
+        }
+
+        return redirect()->intended(route('dashboard', absolute: false));
     }
     ```
   - Membuat folder admin di view, dan membuat file dashboard untuk admin dengan tampilan `<h1 class="text-3xl font-bold underline">Admin</h1>`
@@ -42,7 +51,7 @@
 6. Menambahkan middleware agar link tidak dapat diakses sembarangan
   - Menjalankan prompt `php artisan make:middleware Admin`
   - Membuka file `app\Http\Middleware\Admin.php`
-  - Menambah code berikut agar bisa mengembalikan user ke halaman dashboard user
+  - Menambah code berikut di function handle agar bisa mengembalikan user ke halaman dashboard user
     ```
     if(Auth::user()->usertype != 'admin'){
             return redirect('dashboard')->with('error', 'You are not allowed to access this page');
