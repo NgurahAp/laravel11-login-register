@@ -38,7 +38,7 @@
   - Membuat folder admin di view, dan membuat file dashboard untuk admin dengan tampilan `<h1 class="text-3xl font-bold underline">Admin</h1>`
 
 5. Membuat agar user admin mengarah ke view admin yg sudah dibuat
-  - Membuka file `app\Http\Controllers\Auth\AuthenticatedSessionController.php`
+  - Membuka file Home Controller
   - Menambahkan code dibawah di function store untuk mengarahkan tampilan ke admin
     ```
     if ($request->user()->usertype == 'admin') {
