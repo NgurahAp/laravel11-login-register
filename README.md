@@ -20,7 +20,7 @@
 4. Membuat HomeController
   - Jalankan prompt untuk membuat controller
   - Menambahkan  `Route::get('admin/dashboard', [HomeController::class, 'index'])->name('admin.dashboard');` di routes
-  - Tambahkan code berikut di home controller yang akan digunakan untuk mengarah ke view admin/dashboard.blade.php
+  - Tambahkan code berikut di AuthenticatedSessionController yang akan digunakan untuk mengarah ke view admin/dashboard.blade.php
     ```
      public function store(LoginRequest $request): RedirectResponse
     {
